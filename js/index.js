@@ -1,13 +1,11 @@
-import { pad } from "./utils.js";
+import { keyExists } from "./utils.js";
 
 //Api key from ticketmaster
 const apiKey = config.MY_API_TOKEN;
 const baseURL =
 	"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/";
 const d = new Date();
-const formattedDate = `${d.getFullYear()}-${pad(d.getMonth())}-${pad(
-	d.getDate(),
-)}T${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
+const formattedDate = d.toISOString().substring(0, 19);
 console.log(formattedDate);
 
 // ${baseURL}London,UK/${formattedNow}?key=${apiKey}
