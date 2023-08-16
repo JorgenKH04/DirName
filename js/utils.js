@@ -7,4 +7,4 @@ function keyExists(obj, k) {
 	}
 }
 
-export { pad };
+export { keyExists };
