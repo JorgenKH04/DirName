@@ -11,14 +11,19 @@ const formattedWeek = nextWeek.toISOString().substring(0, 19);
 console.log(formattedDate);
 console.log(formattedWeek);
 
-// ${baseURL}London,UK/${formattedNow}?key=${apiKey}
 async function temp() {
-	const response = await fetch(
-		`${baseURL}London,UK/${formattedDate}?key=${apiKey}&include=stats`,
-	);
-
-	const data = await response.json();
-	console.log(data);
+	try {
+		const response = await fetch(
+			`${baseURL}London,UK/${formattedDate}?ksey=${apiKey}&include=stats`,
+		);
+		if (!response.ok) {
+			throw new Error("Network response was not OK");
+		}
+		const data = await response.json();
+		console.log(data);
+	} catch (error) {
+		console.log(error);
+	}
 }
 
 // temp();
