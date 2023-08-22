@@ -1,10 +1,18 @@
 //Check if object has key
-function keyExists(obj, k) {
-	if (obj[k]) {
+function objHasKey(obj, key) {
+	if (obj[key]) {
 		return true;
 	} else {
 		return false;
 	}
 }
 
-export { keyExists };
+const tryToCatch = async (fn, arg) => {
+	try {
+		return [null, await fn(arg)];
+	} catch (err) {
+		return [err];
+	}
+};
+
+export { tryToCatch };

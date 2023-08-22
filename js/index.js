@@ -1,29 +1,33 @@
-import { keyExists } from "./utils.js";
+import { tryToCatch } from "./utils.js";
 
 //Api key from ticketmaster
-const apiKey = config.MY_API_TOKEN;
-const baseURL =
+const API_KEY = config.MY_API_TOKEN;
+const API_BASE_URL =
 	"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/";
-const currentDate = new Date();
-const nextWeek = new Date(currentDate.getTime() + 7 * 24 * 60 * 60 * 1000);
-const formattedDate = currentDate.toISOString().substring(0, 19);
-const formattedWeek = nextWeek.toISOString().substring(0, 19);
-console.log(formattedDate);
-console.log(formattedWeek);
 
-async function temp() {
-	try {
-		const response = await fetch(
-			`${baseURL}London,UK/${formattedDate}?ksey=${apiKey}&include=stats`,
-		);
-		if (!response.ok) {
-			throw new Error("Network response was not OK");
-		}
-		const data = await response.json();
-		console.log(data);
-	} catch (error) {
+const currentDate = new Date();
+const dateIn7Days = new Date(currentDate.getTime() + 7 * 24 * 60 * 60 * 1000);
+const formattedCurrentDate = currentDate.toISOString().substring(0, 19);
+const formattedDateIn7Days = dateIn7Days.toISOString().substring(0, 19);
+
+console.log(formattedCurrentDate);
+console.log(formattedDateIn7Days);
+
+async function getWeeklyData() {
+	const [error, response] = await tryToCatch(
+		fetch,
+		`${API_BASE_URL}Haugesund,Norway/${formattedCurrentDate}/${formattedDateIn7Days}?ksey=${API_KEY}`,
+	);
+	if (error) {
 		console.log(error);
+		return error;
 	}
+	if (!response.ok) {
+		throw new Error("Network response was not OK");
+	}
+	const data = await response.json();
+	console.log(data);
+	return data;
 }
 
-// temp();
+getWeeklyData();
