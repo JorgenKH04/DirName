@@ -7,6 +7,7 @@ function objHasKey(obj, key) {
 	}
 }
 
+//Try catch "middleman"
 const tryToCatch = async (fn, arg) => {
 	try {
 		return [null, await fn(arg)];
