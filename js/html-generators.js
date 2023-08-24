@@ -1,3 +1,5 @@
+import { weeklyHtml, hourlyHtml, currentDate } from "./index.js";
+
 const DAYS = [
 	"Sunday",
 	"Monday",
@@ -41,8 +43,6 @@ function createHourlyHtml(data) {
 			continue;
 		}
 		if (hourlyHtml.length >= 4) {
-			document.querySelector(".forecast-container").innerHTML =
-				hourlyHtml.join(" ");
 			return;
 		}
 		hourlyHtml.push(`

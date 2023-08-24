@@ -6,8 +6,7 @@ const API_KEY = config.MY_API_TOKEN;
 const API_BASE_URL =
 	"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/";
 
-//Used with currentDate to check currentday
-
+const $ = document.querySelector.bind(document);
 const currentDate = new Date();
 const dateIn4Days = new Date(currentDate.getTime() + 3 * 24 * 60 * 60 * 1000);
 const formattedCurrentDate = currentDate.toISOString().substring(0, 19);
@@ -16,11 +15,17 @@ const hourlyHtml = [];
 const weeklyHtml = [];
 let weeklyForecastSelected = true;
 
+document.addEventListener("click", (e) => {
+	e.preventDefault();
+	if (e.target.closest("#refresh-button")) {
+		hourlyHtml.length = 0;
+		weeklyHtml.length = 0;
+		renderHtml();
+	}
+});
+
 //Gets data from API and sets data to weatherData
 async function getWeatherData() {
-	// if (weatherData) {
-	// 	return weatherData;
-	// }
 	const [error, response] = await tryToCatch(
 		fetch,
 		`${API_BASE_URL}Haugesund,Norway/${formattedCurrentDate}/${formattedDateIn4Days}?key=${API_KEY}&timezone=Z&maxStations=6&unitGroup=metric&elements=temp,humidity,windspeed,conditions,icon,datetime`,
@@ -35,32 +40,33 @@ async function getWeatherData() {
 	const data = await response.json();
 	createWeeklyHtml(data);
 	createHourlyHtml(data);
-	console.log(hourlyHtml);
 	return;
 }
 
-/* Use timezone query to set timezone so it doesnt fuck with format */
-/* Use elements to retrieve only the info i need for the application */
-
-/* Use current for weekly tab and hourly for daily one */
-
+//renders the html
 async function renderHtml() {
-	if (hourlyHtml && weeklyHtml) {
+	if (hourlyHtml.length && weeklyHtml.length) {
 		if (weeklyForecastSelected) {
-			document.querySelector(".forecast-container").innerHTML =
-				weeklyHtml.join(" ");
+			$(".forecast-container").innerHTML = weeklyHtml.join(" ");
 		} else {
-			document.querySelector(".forecast-container").innerHTML =
-				hourlyHtml.join(" ");
+			$(".forecast-container").innerHTML = hourlyHtml.join(" ");
 		}
 		return;
 	}
 	await getWeatherData();
 	if (weeklyForecastSelected) {
-		document.querySelector(".forecast-container").innerHTML =
-			weeklyHtml.join(" ");
+		$(".forecast-container").innerHTML = weeklyHtml.join(" ");
 	} else {
-		document.querySelector(".forecast-container").innerHTML =
-			hourlyHtml.join(" ");
+		$(".forecast-container").innerHTML = hourlyHtml.join(" ");
 	}
 }
+
+renderHtml();
+
+/* Give credit for icons
+   maybe add a small text saying it's Haugesund only for now
+   Add hover effects
+   Add popupwindow on dropdown
+   Maybe add some way to indicate refresh button has been clicked unsure what */
+
+export { weeklyHtml, hourlyHtml, currentDate };

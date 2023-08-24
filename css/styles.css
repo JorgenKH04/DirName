@@ -36,6 +36,7 @@ button {
 }
 
 body .onHover {
+  cursor: pointer;
   color: #02081d;
   background-color: #80acd9;
   border-color: #02081d;
@@ -50,6 +51,7 @@ body .onHover {
   width: 75%;
   height: 75%;
   background-color: #02081d;
+  border-radius: 1em;
 }
 
 .button-and-dropdown {
