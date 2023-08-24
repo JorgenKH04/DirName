@@ -32,11 +32,17 @@ button {
   border-radius: 2em;
   border: solid 1.5px #80acd9;
   gap: 1em;
-  padding: 0.5em 1em;
+  padding: 0em 1em;
 }
 
-button img {
-  width: 25px;
+body .onHover {
+  color: #02081d;
+  background-color: #80acd9;
+  border-color: #02081d;
+}
+
+.onHover svg path {
+  fill: #02081d;
 }
 
 .container {
@@ -54,8 +60,12 @@ button img {
   gap: 1em;
 }
 
+.refresh-svg {
+  transform: scale(0.7);
+}
+
 .dropdownMenu {
-  padding: 0.75em 1.5em;
+  padding: 0.85em 1.5em;
   display: inline-flex;
   gap: 1em;
   border: solid 1.5px #80acd9;
@@ -66,9 +76,8 @@ button img {
   margin: 0;
 }
 
-.dropdownMenu img {
+.dropdown-triangle {
   width: 10px;
-  /* transform: scale(0.5); */
 }
 
 .forecast-container {
@@ -109,10 +118,6 @@ button img {
   display: flex;
   font-size: 1.75rem;
   margin: 1em 0;
-}
-
-.temperature-and-icon img {
-  height: 60px;
 }
 
 .aditional-stats {
