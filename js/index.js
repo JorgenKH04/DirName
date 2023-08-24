@@ -8,9 +8,9 @@ const API_BASE_URL =
 
 const $ = document.querySelector.bind(document);
 const currentDate = new Date();
-const dateIn4Days = new Date(currentDate.getTime() + 3 * 24 * 60 * 60 * 1000);
+const dateIn3Days = new Date(currentDate.getTime() + 3 * 24 * 60 * 60 * 1000);
 const formattedCurrentDate = currentDate.toISOString().substring(0, 19);
-const formattedDateIn4Days = dateIn4Days.toISOString().substring(0, 19);
+const formatteddateIn3Days = dateIn3Days.toISOString().substring(0, 19);
 const hourlyHtml = [];
 const weeklyHtml = [];
 let weeklyForecastSelected = true;
@@ -28,7 +28,7 @@ document.addEventListener("click", (e) => {
 async function getWeatherData() {
 	const [error, response] = await tryToCatch(
 		fetch,
-		`${API_BASE_URL}Haugesund,Norway/${formattedCurrentDate}/${formattedDateIn4Days}?key=${API_KEY}&timezone=Z&maxStations=6&unitGroup=metric&elements=temp,humidity,windspeed,conditions,icon,datetime`,
+		`${API_BASE_URL}Haugesund,Norway/${formattedCurrentDate}/${formatteddateIn3Days}?key=${API_KEY}&timezone=Z&maxStations=6&unitGroup=metric&elements=temp,humidity,windspeed,conditions,icon,datetime`,
 	);
 	if (error) {
 		console.log(error);
