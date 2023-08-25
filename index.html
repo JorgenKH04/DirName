@@ -51,18 +51,30 @@
           </svg>
         </button>
         <div class="dropdownMenu">
-          <!-- Add on hover class to div when hovering-->
-          <p>Weekly forecast</p>
-          <svg
-            class="dropdown-triangle"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-          >
-            <path fill="#80acd9" d="M1 3H23L12 22" />
-          </svg>
+          <div id="dropdownSelected" class="dropdownSelected">
+            <!-- Add on hover class to div when hovering-->
+            <p id="dropdownSelectedText">Weekly forecast</p>
+            <svg
+              class="dropdown-triangle"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <path fill="#80acd9" d="M1 3H23L12 22" />
+            </svg>
+          </div>
+          <ul class="dropdownList">
+            <li id="weekly-forecast" class="selected">Weekly forecast</li>
+            <li id="hourly-forecast">Hourly forecast</li>
+          </ul>
         </div>
       </section>
       <section class="forecast-container"></section>
+    </div>
+    <div class="attribution">
+      <a target="_blank" href="https://icons8.com/icon/set/weather/ultraviolet"
+        >Iconset used</a
+      >
+      iconset by <a target="_blank" href="https://icons8.com">Icons8</a>
     </div>
     <script src="../js/config.js"></script>
     <script src="../js/index.js" type="module"></script>

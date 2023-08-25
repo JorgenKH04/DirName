@@ -35,6 +35,17 @@ button {
   padding: 0em 1em;
 }
 
+button:hover {
+  cursor: pointer;
+  color: #02081d;
+  background-color: #80acd9;
+  border-color: #02081d;
+}
+
+button:hover svg path {
+  fill: #02081d;
+}
+
 body .onHover {
   cursor: pointer;
   color: #02081d;
@@ -67,19 +78,57 @@ body .onHover {
 }
 
 .dropdownMenu {
-  padding: 0.85em 1.5em;
-  display: inline-flex;
-  gap: 1em;
-  border: solid 1.5px #80acd9;
-  border-radius: 2em;
+  position: relative;
 }
 
-.dropdownMenu p {
+.dropdownSelected {
+  min-width: 12em;
+  justify-content: space-between;
+  padding: 0.85em 1.5em;
+  display: inline-flex;
+  border: solid 1.5px #80acd9;
+  border-radius: 0.5em;
+}
+
+.dropdownSelected:hover {
+  cursor: pointer;
+}
+
+.dropdownSelected p {
   margin: 0;
 }
 
 .dropdown-triangle {
   width: 10px;
+  rotate: 0deg;
+  transition: rotate 0.4s;
+}
+
+.dropdown-triangle-flip {
+  rotate: 180deg;
+  transition: rotate 0.4s;
+}
+
+.dropdownList {
+  display: none;
+  top: 52px;
+  width: 12em;
+  position: absolute;
+  list-style-type: none;
+  margin: 0;
+  padding: 1em 1.5em;
+  background-color: #02081d;
+  border: 1px solid #80acd9;
+  border-radius: 0.5em;
+}
+
+.dropdownList li {
+  margin: 0.25em 0;
+}
+
+.dropdownList li:hover {
+  cursor: pointer;
+  color: #99bde1;
 }
 
 .forecast-container {
@@ -128,9 +177,15 @@ body .onHover {
   justify-content: space-between;
 }
 
-.aditional-stats p {
-}
-
 .aditional-stats h4 {
   margin: 0;
+}
+
+.attribution {
+  padding: 1em 2em;
+  background-color: rgba(231, 231, 255, 0.7);
+  color: black;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
 }

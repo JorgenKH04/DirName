@@ -7,6 +7,8 @@ const API_BASE_URL =
 	"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/";
 
 const $ = document.querySelector.bind(document);
+const dropdownTriangle = $(".dropdown-triangle");
+const dropdownList = $(".dropdownList");
 const currentDate = new Date();
 const dateIn3Days = new Date(currentDate.getTime() + 3 * 24 * 60 * 60 * 1000);
 const formattedCurrentDate = currentDate.toISOString().substring(0, 19);
@@ -21,6 +23,23 @@ document.addEventListener("click", (e) => {
 		hourlyHtml.length = 0;
 		weeklyHtml.length = 0;
 		renderHtml();
+	}
+	if (e.target.closest(".dropdownSelected")) {
+		if (dropdownTriangle.classList.contains("dropdown-triangle-flip")) {
+			dropdownTriangle.classList.remove("dropdown-triangle-flip");
+			dropdownList.style.display = "none";
+			return;
+		}
+		dropdownTriangle.classList.add("dropdown-triangle-flip");
+		dropdownList.style.display = "block";
+	}
+	if (e.target.closest("#weekly-forecast")) {
+		console.log("weekly");
+		dropdownSelection("w");
+	}
+	if (e.target.closest("#hourly-forecast")) {
+		dropdownSelection("h");
+		console.log("hourly");
 	}
 });
 
@@ -59,6 +78,27 @@ async function renderHtml() {
 	} else {
 		$(".forecast-container").innerHTML = hourlyHtml.join(" ");
 	}
+}
+
+function dropdownSelection(selected) {
+	if (selected === "w") {
+		weeklyForecastSelected = true;
+		$("#weekly-forecast").style.opacity = "50%";
+		$("#hourly-forecast").style.opacity = "100%";
+		dropdownTriangle.classList.remove("dropdown-triangle-flip");
+		$("#dropdownSelectedText").textContent = "Weekly forecast";
+		dropdownList.style.display = "none";
+		renderHtml();
+		return;
+	}
+	weeklyForecastSelected = false;
+	$("#weekly-forecast").style.opacity = "100%";
+	$("#hourly-forecast").style.opacity = "50%";
+	dropdownTriangle.classList.remove("dropdown-triangle-flip");
+	$("#dropdownSelectedText").textContent = "Hourly forecast";
+	dropdownList.style.display = "none";
+	renderHtml();
+	return;
 }
 
 renderHtml();
