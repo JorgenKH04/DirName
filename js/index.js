@@ -16,6 +16,7 @@ const formatteddateIn3Days = dateIn3Days.toISOString().substring(0, 19);
 const hourlyHtml = [];
 const weeklyHtml = [];
 let weeklyForecastSelected = true;
+$("#weekly-forecast").style.opacity = "50%";
 
 document.addEventListener("click", (e) => {
 	e.preventDefault();
