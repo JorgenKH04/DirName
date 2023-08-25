@@ -1,5 +1,4 @@
-import { tryToCatch } from "./utils.js";
-import { createHourlyHtml, createWeeklyHtml } from "./html-generators.js";
+import { tryToCatch, createHourlyHtml, createWeeklyHtml } from "./utils.js";
 
 //Api key from Visualcrossing
 const API_KEY = config.MY_API_TOKEN;
@@ -12,7 +11,6 @@ const dropdownList = $(".dropdownList");
 const currentDate = new Date();
 const dateIn3Days = new Date(currentDate.getTime() + 3 * 24 * 60 * 60 * 1000);
 const formattedCurrentDate = currentDate.toISOString().substring(0, 19);
-const formatteddateIn3Days = dateIn3Days.toISOString().substring(0, 19);
 const hourlyHtml = [];
 const weeklyHtml = [];
 let weeklyForecastSelected = true;
@@ -35,12 +33,10 @@ document.addEventListener("click", (e) => {
 		dropdownList.style.display = "block";
 	}
 	if (e.target.closest("#weekly-forecast")) {
-		console.log("weekly");
 		dropdownSelection("w");
 	}
 	if (e.target.closest("#hourly-forecast")) {
 		dropdownSelection("h");
-		console.log("hourly");
 	}
 });
 
@@ -48,10 +44,16 @@ document.addEventListener("click", (e) => {
 async function getWeatherData() {
 	const [error, response] = await tryToCatch(
 		fetch,
-		`${API_BASE_URL}Haugesund,Norway/${formattedCurrentDate}/${formatteddateIn3Days}?key=${API_KEY}&timezone=Z&maxStations=6&unitGroup=metric&elements=temp,humidity,windspeed,conditions,icon,datetime`,
+		`${API_BASE_URL}Haugesund,Norway/${formattedCurrentDate}/${dateIn3Days
+			.toISOString()
+			.substring(
+				0,
+				19,
+			)}?key=${API_KEY}&timezone=Z&maxStations=6&unitGroup=metric&elements=temp,humidity,windspeed,conditions,icon,datetime`,
 	);
+
+	//Kinda forgot to implement text to show errors for user, i think only errors are on API side though
 	if (error) {
-		console.log(error);
 		return error;
 	}
 	if (!response.ok) {
